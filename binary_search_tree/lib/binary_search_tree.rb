@@ -71,24 +71,64 @@ class BinarySearchTree
       end
 
     else
-      nil
+      new_node = maximum(bye_node.left)
+
+
+      if bye_node.parent_node.left == bye_node
+        new_node.parent_node.right = new_node.left
+
+        bye_node.parent_node.left = new_node
+        bye_node.left.parent_node = new_node
+        bye_node.right.parent_node = new_node
+
+        new_node.right = bye_node.right
+        new_node.left = bye_node.left
+        new_node.parent_node = bye_node.parent_node
+
+      else
+
+        bye_node.parent_node.left = new_node
+        bye_node.left.parent_node = new_node
+        bye_node.right.parent_node = new_node
+
+        new_node.right = bye_node.right
+        new_node.left = bye_node.left
+        new_node.parent_node = bye_node.parent_node
+      end
     end
   end
 
   # helper method for #delete:
   def maximum(tree_node = @root)
-    # p tree_node
-    # return tree_node if tree_node.right = nil
-    # maximum(tree_node.right)
+    return tree_node if tree_node.right == nil
+    return maximum(tree_node.right)
+
   end
 
   def depth(tree_node = @root)
+    return 0 if tree_node == nil
+
+    deepness = 0
+
+    if tree_node.right == nil && tree_node.left == nil
+      return deepness
+    else
+      right = depth(tree_node.right)
+      left = depth(tree_node.left)
+      right > left ? deepness += right + 1 : deepness += left +1
+    end
+    return deepness
+
   end
 
   def is_balanced?(tree_node = @root)
+    return true if depth(tree_node.left) == depth(tree_node.right)
+    false
   end
 
   def in_order_traversal(tree_node = @root, arr = [])
+    
+
   end
 
 
