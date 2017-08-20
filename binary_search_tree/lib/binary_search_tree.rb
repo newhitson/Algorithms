@@ -2,9 +2,10 @@
 # to methods as you see fit, or to create helper methods.
 require 'bst_node.rb'
 class BinarySearchTree
-  def initialize
-      @root = nil
+  def initialize(root = nil)
+    @root = root
   end
+  
   attr_accessor :root
 
   def insert(value)
@@ -127,8 +128,11 @@ class BinarySearchTree
   end
 
   def in_order_traversal(tree_node = @root, arr = [])
-    
-
+    return arr << tree_node.value if tree_node.no_children?
+    in_order_traversal(tree_node.left, arr) if tree_node.left
+    arr << tree_node.value
+    in_order_traversal(tree_node.right, arr) if tree_node.right
+    arr
   end
 
 
