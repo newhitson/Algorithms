@@ -8,8 +8,26 @@
 # Import any files you need to
 
 
-
+require 'graph'
 def install_order(arr)
-[1,2,3,4,5,6,7,8,9,0,10]
+
+  #for every array create 2 verties unless they already exist
+  #create and edge that is a dependency on the 2 points
+
+  verts = {}
+  max = []
+  arr.each do |dep|
+    first = dep[0]
+    secound = dep[1]
+
+    verts[first] = Vertex.new(dep[0]) unless verts[first]
+    verts[secound] = Vertex.new(dep[1]) unless verts[secound]
+    Edge.new(verts[first], verts[secound]) if secound
+  end
+  topological_sort(verts.values).map {|v| v.value}
+
+
+
+
 
 end
