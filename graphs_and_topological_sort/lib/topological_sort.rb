@@ -19,8 +19,11 @@ def topological_sort(vertices)
     edges = current.out_edges.dup
 
     edges.each do |edge|
+
       destination = edge.to_vertex
+
       edge.destroy!
+
       if destination.in_edges.empty?
         top << destination
       end
